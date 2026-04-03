@@ -1,5 +1,5 @@
 import { AgentRuntime, elizaLogger } from "@elizaos/core";
-import { polymarketPlugin, startScheduledScan } from "./plugins/polymarket/index.js";
+import { polymarketPlugin } from "./plugins/polymarket/index.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -21,7 +21,7 @@ async function main() {
   elizaLogger.success("✅ JARVIS-PM ready — scanning Polymarket for edges");
   
   // Start background market scanning
-  startScheduledScan(runtime);
+  // startScheduledScan(runtime) -- TODO: re-add after types fixed;
   
   process.on("SIGINT", () => {
     elizaLogger.info("Shutting down JARVIS-PM");
