@@ -1,17 +1,15 @@
-import { AgentRuntime, settings, stringToUuid, elizaLogger } from "@elizaos/core";
-import { polymarketPlugin } from "./plugins/polymarket/index.js";
+import { AgentRuntime, elizaLogger } from "@elizaos/core";
+import { polymarketPlugin, startScheduledScan } from "./plugins/polymarket/index.js";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-// Load character
-const characterPath = path.join(process.cwd(), "characters", "jarvis-pm.character.json");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const characterPath = path.join(__dirname, "..", "characters", "jarvis-pm.character.json");
 const character = JSON.parse(fs.readFileSync(characterPath, "utf-8"));
 
-// Add our custom plugin
-character.plugins = [...(character.plugins || []), "plugin-polymarket"];
-
-elizaLogger.info("Starting JARVIS-PM — Prediction Market Intelligence Agent");
-elizaLogger.info("Running on Nosana decentralized compute");
+elizaLogger.info("🚀 Starting JARVIS-PM — Prediction Market Intelligence Agent");
+elizaLogger.info("🔗 Running on Nosana decentralized compute");
 
 async function main() {
   const runtime = new AgentRuntime({
@@ -20,13 +18,18 @@ async function main() {
   });
   
   await runtime.initialize();
-  elizaLogger.success("JARVIS-PM agent ready");
+  elizaLogger.success("✅ JARVIS-PM ready — scanning Polymarket for edges");
   
-  // Keep alive
+  // Start background market scanning
+  startScheduledScan(runtime);
+  
   process.on("SIGINT", () => {
     elizaLogger.info("Shutting down JARVIS-PM");
     process.exit(0);
   });
 }
 
-main().catch(elizaLogger.error);
+main().catch((err) => {
+  elizaLogger.error("Fatal error:", err);
+  process.exit(1);
+});
