@@ -1,42 +1,32 @@
-/**
- * Custom Plugin Entry Point
- *
- * This file is where you can define custom actions, providers, and evaluators
- * for your ElizaOS agent. Add your logic here and reference this plugin in
- * your character file.
- *
- * ElizaOS Plugin Docs: https://elizaos.github.io/eliza/docs/core/plugins
- */
+import { AgentRuntime, settings, stringToUuid, elizaLogger } from "@elizaos/core";
+import { polymarketPlugin } from "./plugins/polymarket/index.js";
+import fs from "fs";
+import path from "path";
 
-import { type Plugin } from "@elizaos/core";
+// Load character
+const characterPath = path.join(process.cwd(), "characters", "jarvis-pm.character.json");
+const character = JSON.parse(fs.readFileSync(characterPath, "utf-8"));
 
-/**
- * Example custom action.
- * Replace this with your own action logic.
- */
-const exampleAction = {
-  name: "EXAMPLE_ACTION",
-  description: "An example action — replace with your own.",
-  similes: ["DEMO", "SAMPLE"],
-  validate: async () => true,
-  handler: async (_runtime: unknown, message: { content: { text: string } }) => {
-    console.log("Custom action triggered with message:", message.content.text);
-    return true;
-  },
-  examples: [],
-};
+// Add our custom plugin
+character.plugins = [...(character.plugins || []), "plugin-polymarket"];
 
-/**
- * Your custom plugin.
- * Add this plugin's name to the `plugins` array in your character file
- * to activate it.
- */
-export const customPlugin: Plugin = {
-  name: "custom-plugin",
-  description: "My custom ElizaOS plugin",
-  actions: [exampleAction],
-  providers: [],
-  evaluators: [],
-};
+elizaLogger.info("Starting JARVIS-PM — Prediction Market Intelligence Agent");
+elizaLogger.info("Running on Nosana decentralized compute");
 
-export default customPlugin;
+async function main() {
+  const runtime = new AgentRuntime({
+    character,
+    plugins: [polymarketPlugin],
+  });
+  
+  await runtime.initialize();
+  elizaLogger.success("JARVIS-PM agent ready");
+  
+  // Keep alive
+  process.on("SIGINT", () => {
+    elizaLogger.info("Shutting down JARVIS-PM");
+    process.exit(0);
+  });
+}
+
+main().catch(elizaLogger.error);
