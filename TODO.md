@@ -11,8 +11,8 @@
 
 ## 🔄 Remaining (in priority order)
 - [ ] 7. Test actions via chat UI (http://localhost:3000) — verify scan/research work
-- [ ] 8. Fix TypeScript types properly (remove @ts-nocheck, use correct Handler type)
-- [ ] 9. Add scheduled background scanning with auto-alerts
+- [x] 8. Fix TypeScript types properly (remove @ts-nocheck, use correct Handler type)
+- [x] 9. Add scheduled background scanning with auto-alerts
 - [ ] 10. Claim Nosana compute credits (nosana.com/builders-credits) 
 - [ ] 11. Update nos_job_def for Nosana deployment
 - [ ] 12. Deploy to Nosana network (docker build + nosana job submit)
