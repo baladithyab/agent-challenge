@@ -14,7 +14,7 @@
 - [x] 8. Fix TypeScript types properly (remove @ts-nocheck, use correct Handler type)
 - [x] 9. Add scheduled background scanning with auto-alerts
 - [ ] 10. Claim Nosana compute credits (nosana.com/builders-credits) 
-- [ ] 11. Update nos_job_def for Nosana deployment
+- [x] 11. Update nos_job_def for Nosana deployment
 - [ ] 12. Deploy to Nosana network (docker build + nosana job submit)
 - [ ] 13. Record 1-min demo video (screen capture of agent in action)
 - [ ] 14. Write Twitter/X thread explaining what was built
