@@ -17,7 +17,7 @@
 - [x] 11. Update nos_job_def for Nosana deployment
 - [ ] 12. Deploy to Nosana network (docker push BLOCKED: need docker login -- run: docker login -u baladithyab, then re-run push)
 - [ ] 13. Record 1-min demo video (screen capture of agent in action)
-- [ ] 14. Write Twitter/X thread explaining what was built
+- [x] 14. Write Twitter/X thread explaining what was built (TWITTER_THREAD.md ready)
 - [ ] 15. Submit via Superteam Earn (https://earn.superteam.fun/listing/nosana-builders-elizaos-challenge)
 
 ## Notes
@@ -25,3 +25,14 @@
 - Set env: OPENAI_API_KEY=nosana, OPENAI_API_URL=[nosana endpoint], TAVILY_API_KEY=[key]
 - Chat UI: http://localhost:3000
 - Nosana endpoint: https://6vq2bcqphcansrs9b88ztxfs88oqy7etah2ugudytv2x.node.k8s.prd.nos.ci/v1
+
+## Status Update — 2026-04-03 13:18 PT
+- TODO #12 (docker push): BLOCKED — `denied: requested access to the resource is denied`
+  - Image exists locally: `baladithyab/jarvis-pm-agent:latest` (2.08GB)
+  - No Docker Hub credentials cached (~/.docker/config.json missing)
+  - **ACTION NEEDED FROM BALA:** Run `docker login -u baladithyab` and enter Docker Hub password/token
+    Then run: `docker push baladithyab/jarvis-pm-agent:latest`
+- TODO #10 (compute credits): Visit https://nosana.com/builders-credits with wallet connected
+- TODO #13 (demo video): Record ~1min screen capture of `elizaos dev` + chat UI interaction
+- TODO #14 (Twitter thread): TWITTER_THREAD.md exists — review and post
+- TODO #15 (submit): https://earn.superteam.fun/listing/nosana-builders-elizaos-challenge
