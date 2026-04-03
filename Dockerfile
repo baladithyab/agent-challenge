@@ -1,14 +1,8 @@
 # syntax=docker/dockerfile:1
 
-FROM node:23-slim AS base
+FROM node:23 AS base
 
-# Install system dependencies needed for native modules (e.g. better-sqlite3)
-RUN apt-get update && apt-get install -y \
-  python3 \
-  make \
-  g++ \
-  git \
-  && rm -rf /var/lib/apt/lists/*
+
 
 # Disable telemetry
 ENV ELIZAOS_TELEMETRY_DISABLED=true
