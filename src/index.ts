@@ -22,13 +22,17 @@ async function main(): Promise<void> {
   elizaLogger.success("✅ JARVIS-PM ready — scanning Polymarket for edges");
 
   // Start background market scanning every 30 minutes
-  startScheduledScan(runtime);
+  const scanInterval = startScheduledScan(runtime);
   elizaLogger.info("📡 Background market scanning started (30-min interval)");
 
-  process.on("SIGINT", () => {
+  const shutdown = () => {
     elizaLogger.info("Shutting down JARVIS-PM");
+    clearInterval(scanInterval);
     process.exit(0);
-  });
+  };
+
+  process.on("SIGINT", shutdown);
+  process.on("SIGTERM", shutdown);
 }
 
 main().catch((err: unknown) => {
